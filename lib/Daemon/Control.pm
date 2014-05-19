@@ -8,7 +8,7 @@ use File::Path qw( make_path );
 use Cwd 'abs_path';
 require 5.008001; # Supporting 5.8.1+
 
-our $VERSION = '0.001005'; # 0.1.5
+our $VERSION = '0.001005_01'; # 0.1.5_01
 $VERSION = eval $VERSION;
 
 my @accessors = qw(
@@ -237,7 +237,7 @@ sub _double_fork {
     return $self;
 }
 
-sub _foreground { shift->_launch_program } 
+sub _foreground { shift->_launch_program }
 
 sub _fork {
     my ( $self ) = @_;
@@ -587,7 +587,7 @@ sub run_template {
 
 sub run_command {
     my ( $self, $arg ) = @_;
-    
+
     # Error Checking.
     if ( ! $self->program ) {
         die "Error: program must be defined.";
@@ -605,7 +605,7 @@ sub run_command {
         $self->gid( $gid );
         $self->trace( "Implicit GID => $gid" );
     }
-    
+
     my $called_with = $arg || "help";
     $called_with =~ s/^[-]+//g; # Allow people to do --command too.
 
@@ -922,7 +922,7 @@ as that the daemon started.  A shortcut to turn status off and go into foregroun
 mode is C<foreground> being set to 1, or C<DC_FOREGROUND> being set as an
 environment variable.  Additionally, calling C<foreground> instead of C<start> will
 override the forking mode at run-time.
-    
+
     $daemon->fork( 0 );
 
     $daemon->fork( 1 );
@@ -1002,7 +1002,7 @@ is tried twice).
 =head2 run_command
 
 This function will process an action on the Daemon::Control instance.
-Valid arguments are those which a C<do_> method exists for, such as 
+Valid arguments are those which a C<do_> method exists for, such as
 B<start>, B<stop>, B<restart>.  Returns the LSB exit code for the
 action processed.
 
@@ -1011,7 +1011,7 @@ action processed.
 This will make your program act as an init file, accepting input from
 the command line.  Run will exit with 0 for success and uses LSB exit
 codes.  As such no code should be used after ->run is called.  Any code
-in your file should be before this.  This is a shortcut for 
+in your file should be before this.  This is a shortcut for
 
     exit Daemon::Control->new(...)->run_command( @ARGV );
 
@@ -1024,7 +1024,7 @@ exits. Called by:
 
 =head2 do_foreground
 
-Is called when B<foreground> is given as an argument.  Starts the 
+Is called when B<foreground> is given as an argument.  Starts the
 program or code reference and stays in the foreground -- no forking
 is done, regardless of the compile-time arguments.  Additionally,
 turns C<quiet> on to avoid showing L<Daemon::Control> output.
